@@ -1,8 +1,14 @@
 from stable_baselines3 import PPO
-from robot_arm_env import RobotArmEnv
 import pybullet as p
 import time
 import numpy as np
+import sys
+import os
+
+# Add the src directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from environments.robot_arm_env import RobotArmEnv
 
 def main():
     # Create environment with GUI
@@ -12,7 +18,7 @@ def main():
     p.resetDebugVisualizerCamera(cameraDistance=1.0, cameraYaw=0, cameraPitch=-30, cameraTargetPosition=[0,0,0])
     
     # Load the trained model
-    model = PPO.load("robot_arm_ppo")
+    model = PPO.load("../../models/robot_arm_ppo")
     
     # Run a few episodes
     for episode in range(5):

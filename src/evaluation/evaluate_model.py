@@ -1,8 +1,14 @@
 from stable_baselines3 import PPO
-from robot_arm_env import RobotArmEnv
 import pybullet as p
 import time
 import numpy as np
+import sys
+import os
+
+# Add the src directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from environments.robot_arm_env import RobotArmEnv
 
 def evaluate_model(model_path, num_episodes=5, render=True):
     # Create environment with GUI
@@ -40,7 +46,7 @@ def evaluate_model(model_path, num_episodes=5, render=True):
 
 if __name__ == "__main__":
     # Path to the trained model
-    model_path = "robot_arm_ppo"
+    model_path = "../../models/robot_arm_ppo"
     
     # Evaluate the model
     evaluate_model(model_path, num_episodes=5, render=True) 

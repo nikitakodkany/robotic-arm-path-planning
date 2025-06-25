@@ -2,13 +2,17 @@ import gym
 import pybullet as p
 import numpy as np
 import time
+import os
 
 class RobotArmEnv(gym.Env):
     def __init__(self):
         super(RobotArmEnv, self).__init__()
         self.physicsClient = p.connect(p.DIRECT)
         p.setGravity(0, 0, -9.81)
-        self.robot_id = p.loadURDF("robot_arm.urdf")
+        
+        # Get the path to the URDF file
+        urdf_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'urdf', 'robot_arm.urdf')
+        self.robot_id = p.loadURDF(urdf_path)
         
         # Get end effector link index
         self.end_effector_idx = -1
@@ -32,7 +36,10 @@ class RobotArmEnv(gym.Env):
     def reset(self):
         p.resetSimulation()
         p.setGravity(0, 0, -9.81)
-        self.robot_id = p.loadURDF("robot_arm.urdf")
+        
+        # Get the path to the URDF file
+        urdf_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'urdf', 'robot_arm.urdf')
+        self.robot_id = p.loadURDF(urdf_path)
         
         # Get end effector link index again after reset
         self.end_effector_idx = -1
